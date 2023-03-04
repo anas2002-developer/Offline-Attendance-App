@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http//schemas.android.com/tools"
+    tool:showIn ="navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/row_home"
+            android:title="Home"
+            android:icon="@drawable/home">
+        </item>
+
+        <item
+            android:title="Attendance Track"
+            android:id="@+id/row_attendance_track"
+            android:icon="@drawable/attendance_track">
+        </item>
+
+        <item
+            android:title="QR Scan"
+            android:id="@+id/row_qr"
+            android:icon="@drawable/qr">
+        </item>
+    </group>
+
+    <item android:title="General">
+        <menu>
+            <item android:title="Profile"
+                android:id="@+id/row_profile"
+                android:icon="@drawable/profile"/>
+
+            <item android:title="Settings"
+                android:id="@+id/row_settings"
+                android:icon="@drawable/settings"/>
+        </menu>
+    </item>
+
+    <item android:title="Comunicate">
+        <menu>
+            <item
+                android:title="How To Use"
+                android:icon="@drawable/howtouse"
+                android:id="@+id/row_howtouse"/>
+            <item
+                android:title="Suggestions"
+                android:icon="@drawable/suggestions"
+                android:id="@+id/row_sugg"/>
+            <item android:title="Share App"
+                android:icon="@drawable/share"
+                android:id="@+id/share"/>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F2F2F8"
+    tools:context=".Fragments.HomeFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sections :"
+        android:textSize="28dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/bold"
+        android:layout_margin="20dp"
+        android:id="@+id/txtSec_title" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create or Choose a Section"
+        android:textSize="18dp"
+        android:fontFamily="@font/bold"
+        android:textColor="#A5A5A5"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_below="@id/txtSec_title"
+        android:id="@+id/txtSec_desc" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtSec_desc"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/floating"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp" />
+
+</RelativeLayout>

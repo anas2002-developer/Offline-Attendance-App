@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="18dp"
+        android:id="@+id/sec_card" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:paddingLeft="18dp"
+                android:paddingBottom="8dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Student here"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/bold"
+                    android:textColor="@color/black"
+                    android:id="@+id/txtStud_name_row" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Uid here"
+                    android:textSize="12dp"
+                    android:textAllCaps="true"
+                    android:textColor="#A5A5A5"
+                    android:id="@+id/txtStud_uid_row" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingTop="2dp">
+
+
+
+                <RadioGroup
+                    android:id="@+id/radioG"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radioA"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:enabled="true"/>
+
+                    <RadioButton
+                        android:id="@+id/radioP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="true"/>
+                </RadioGroup>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

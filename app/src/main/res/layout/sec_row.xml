@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:foreground="@drawable/sec_card_hover"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="22dp"
+        android:id="@+id/sec_card"
+        app:cardElevation="4dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:padding="14dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:src="@drawable/stationary_purple"
+                android:layout_marginBottom="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Section here"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/bold"
+                android:textColor="@color/black"
+                android:id="@+id/txtSec_name_row" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subject here"
+                android:textSize="14dp"
+                android:textAllCaps="true"
+                android:textColor="#A5A5A5"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/txtSub_name_row" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
