@@ -3,6 +3,7 @@ package com.anas.project2.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.anas.project2.Model.ModelReport;
 import com.anas.project2.R;
+import com.anas.project2.ReportsAttendanceActivity;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
 
@@ -53,7 +56,12 @@ public class AdapterReportRV extends RealmRecyclerViewAdapter<ModelReport, Adapt
         ModelReport temp = getItem(position);
 
         Realm.init(context);
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME)
+                .schemaVersion(0)
+                .allowWritesOnUiThread(true)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        realm = Realm.getInstance(realmConfiguration);
 
         holder.month.setText(temp.getMonthOnly());
         holder.date.setText(temp.getDateOnly());
@@ -62,6 +70,12 @@ public class AdapterReportRV extends RealmRecyclerViewAdapter<ModelReport, Adapt
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(context, ReportsAttendanceActivity.class);
+                intent.putExtra("date_room_id", data.get(position).getDate_room_id());
+                intent.putExtra("date", data.get(position).getDate());
+                intent.putExtra("sub_name", data.get(position).getSub_name());
+                intent.putExtra("sec_name", data.get(position).getSec_name());
+                context.startActivity(intent);
                 Toast.makeText(context, "Add Intent to report attendance", Toast.LENGTH_SHORT).show();
             }
         });
@@ -75,8 +89,6 @@ public class AdapterReportRV extends RealmRecyclerViewAdapter<ModelReport, Adapt
         public TextView month;
         public TextView date;
 
-        public Activity mActivity;
-        RealmResults<ModelReport> mList;
 
         public ViewHolderReports(@NonNull final View itemView) {
             super(itemView);

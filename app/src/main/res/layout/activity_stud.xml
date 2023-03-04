@@ -32,34 +32,51 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:text="Subject Here :"
+        android:text="Subject Here"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/black"
         android:textSize="28dp" />
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Section Here"
+            android:textSize="14dp"
+            android:textColor="#a5a5a5"
+            android:layout_below="@+id/txtStud_title"
+            android:fontFamily="@font/regular"
+            android:textAllCaps="true"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/txtStud_desc" />
+
+
+
 
 
     <LinearLayout
         android:id="@+id/layLL_stud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtStud_title">
-
-        <TextView
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:text="Section Here"
-            android:textSize="14dp"
-            android:layout_marginLeft="20dp"
-            android:id="@+id/txtStud_desc" />
+        android:layout_below="@id/txtStud_desc">
+    <TextView
+        android:id="@+id/txtTotalStuds"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Total Studs : "
+        android:fontFamily="@font/regular"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="A      P"
+            android:text="A       P"
             android:fontFamily="@font/bold"
             android:textSize="18dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="18dp"
             android:id="@+id/txtStud_Status" />
-
-
     </LinearLayout>
 
 
@@ -70,55 +87,56 @@
         android:layout_marginTop="20dp"
         android:id="@+id/vRV_Stud" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabStud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/floating"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp" />
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnExcel"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_toLeftOf="@+id/fabStud"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button_purple_bg"
-        android:fontFamily="@font/bold"
-        android:inputType="textCapSentences"
-        android:elevation="10dp"
-        android:padding="10dp"
-        android:text="Excel"
-        android:shadowColor="#7061D7"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:textStyle="bold" />
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="5" >
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnReport"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_toLeftOf="@+id/fabStud"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/button_purple_bg"
-        android:fontFamily="@font/bold"
-        android:inputType="textCapSentences"
-        android:elevation="10dp"
-        android:padding="10dp"
-        android:text="Report"
-        android:shadowColor="#7061D7"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:textStyle="bold" />
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnExcel"
+            android:layout_weight="2"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rounded_button"
+            android:fontFamily="@font/bold"
+            android:inputType="textCapSentences"
+            android:elevation="10dp"
+            android:text="Excel"
+            android:shadowColor="#7061D7"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabStud"
+            android:layout_weight="1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="15dp"
+            style="@style/floating" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnReport"
+            android:layout_weight="2"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/rounded_button"
+            android:fontFamily="@font/bold"
+            android:inputType="textCapSentences"
+            android:elevation="10dp"
+            android:text="Report"
+            android:shadowColor="#7061D7"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

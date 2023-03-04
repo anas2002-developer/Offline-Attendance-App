@@ -51,10 +51,10 @@ public class AdapterReportAttendanceRV extends RealmRecyclerViewAdapter<ModelRep
         holder.txtRA_uid_row.setText(temp.getStud_uid());
         if (temp.getStatus().equals("Present")){
             holder.txtRA_status_row.setText("P");
-            holder.cardRA_row.setCardBackgroundColor(context.getResources().getColor(R.color.teal_200));
+            holder.cardRA_row.setCardBackgroundColor(context.getResources().getColor(R.color.P));
         }else{
             holder.txtRA_status_row.setText("A");
-            holder.cardRA_row.setCardBackgroundColor(context.getResources().getColor(R.color.black));
+            holder.cardRA_row.setCardBackgroundColor(context.getResources().getColor(R.color.A));
         }
     }
 

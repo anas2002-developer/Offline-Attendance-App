@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grad_2">#7F6CEF</color>
 
+    <color name="A">#FF0000</color>
+    <color name="P">#4FCF00</color>
+
+
+
 </resources>

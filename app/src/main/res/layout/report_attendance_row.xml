@@ -11,21 +11,23 @@
         android:layout_height="wrap_content"
         android:layout_weight="8"
         android:foreground="?attr/selectableItemBackground"
-        android:padding="12dp"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/txtRA_name_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Student Name here"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/purple_200"
+            android:fontFamily="@font/bold"
+            android:textColor="@color/black"
             android:textSize="18dp"/>
         <TextView
             android:id="@+id/txtRA_uid_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/italic"
+            android:textColor="#a5a5a5"
             android:text="9633117104030"/>
     </LinearLayout>
 

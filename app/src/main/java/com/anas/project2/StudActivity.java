@@ -38,6 +38,7 @@ import java.util.TimeZone;
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 import io.realm.RealmChangeListener;
+import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.Sort;
@@ -50,6 +51,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView txtStud_title;
     TextView txtStud_desc;
+    TextView txtTotalStuds;
     RecyclerView vRV_Stud;
     FloatingActionButton fabStud;
 
@@ -76,16 +78,23 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Realm.init(this);
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME)
+                .schemaVersion(0)
+                .allowWritesOnUiThread(true)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        realm = Realm.getInstance(realmConfiguration);
         results = realm.where(ModelStud.class)
                 .findAll();
 
         txtStud_title = findViewById(R.id.txtStud_title);
         txtStud_desc = findViewById(R.id.txtStud_desc);
+        txtTotalStuds = findViewById(R.id.txtTotalStuds);
+
         fabStud=findViewById(R.id.fabStud);
         btnReport=findViewById(R.id.btnReport);
         btnExcel=findViewById(R.id.btnExcel);
-        btnExcel.setVisibility(View.GONE);
+//        btnExcel.setVisibility(View.GONE);
         vRV_Stud = findViewById(R.id.vRV_Stud);
         vRV_Stud.setLayoutManager(new LinearLayoutManager(StudActivity.this));
 
@@ -99,6 +108,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
         RealmChange();
 //        adapterStudRV = new AdapterStudRV(results);
 //        vRV_Stud.setAdapter(adapterStudRV);
+
 
         fabStud.setOnClickListener(this::onClick);
         btnExcel.setOnClickListener(this::onClick);
@@ -118,13 +128,31 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
                 ViewReports();
                 break;
             case R.id.btnExcel:
-                SubmitAttendance();
+                CheckAllTick();
                 break;
         }
     }
 
+    private void CheckAllTick() {
+        long count = realm.where(ModelStud.class)
+                .equalTo("room_id", room_id)
+                .count();
+        final String size, size2;
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(StudActivity.this);
+        size = String.valueOf(preferences.getAll().size());
+        size2 = String.valueOf(count);
+
+        if (size.equals(size2)){
+            SubmitAttendance();
+        }else {
+            Toast.makeText(StudActivity.this, "Mark All Students", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
     private void SubmitAttendance() {
 
+        
             final ProgressDialog progressDialog = new ProgressDialog(StudActivity.this);
             progressDialog.setMessage("Submitting, Please wait..");
             progressDialog.show();
@@ -258,7 +286,12 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
     public void RealmChange(){
 
         Realm.init(this);
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME)
+                .schemaVersion(0)
+                .allowWritesOnUiThread(true)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        realm = Realm.getInstance(realmConfiguration);
         final String date = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
         realmChangeListener = new RealmChangeListener() {
             @Override
@@ -267,7 +300,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
                         .equalTo("room_id", room_id)
                         .count();
 //
-//                total_students.setText("Total Students : " + count);
+                txtTotalStuds.setText("Total Students : " + count);
 //
 //                long reports_size = realm.where(ModelReport.class)
 //                        .equalTo("date_and_classID", date+room_id)
@@ -325,7 +358,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 
 
-//        total_students.setText("Total Students : " + count);
+        txtTotalStuds.setText("Total Students : " + count);
 
 //        mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
 //        mAdapter = new StudentsListAdapter( students,ClassDetail_Activity.this, date+room_ID, extraClick);

@@ -34,13 +34,42 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:text="Attedance Dates :"
+        android:text="Subject Here"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/black"
         android:textSize="28dp" />
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Section Here"
+        android:textSize="14dp"
+        android:textColor="#a5a5a5"
+        android:fontFamily="@font/regular"
+        android:textAllCaps="true"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/txtReport_desc" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"
+        android:text="Choose Date :"
+        android:textSize="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:id="@+id/vRV_Report" />
 
 </LinearLayout>

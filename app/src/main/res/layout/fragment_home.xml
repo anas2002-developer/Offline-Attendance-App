@@ -14,7 +14,9 @@
         android:textSize="28dp"
         android:textColor="@color/black"
         android:fontFamily="@font/bold"
-        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/txtSec_title" />
 
 
@@ -25,7 +27,7 @@
         android:textSize="18dp"
         android:fontFamily="@font/bold"
         android:textColor="#A5A5A5"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginBottom="30dp"
         android:layout_below="@id/txtSec_title"
         android:id="@+id/txtSec_desc" />
@@ -45,7 +47,7 @@
         style="@style/floating"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="23dp" />
 
 </RelativeLayout>

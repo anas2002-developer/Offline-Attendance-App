@@ -27,7 +27,7 @@
 
 
     <TextView
-        android:id="@+id/txtReportAttendance_title"
+        android:id="@+id/txtRA_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBarSub"
@@ -35,13 +35,76 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:text="Attedance Report :"
+        android:text="Subject Here"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/black"
         android:textSize="28dp" />
+
+
+
+
+    <TextView
+        android:id="@+id/txtRA_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Section Here"
+        android:textSize="14dp"
+        android:textColor="#a5a5a5"
+        android:fontFamily="@font/regular"
+        android:textAllCaps="true"
+        android:layout_marginLeft="20dp" />
+
+    <TextView
+        android:id="@+id/txtRA_desc2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date Here"
+        android:textSize="14dp"
+        android:textColor="#615ee8"
+        android:fontFamily="@font/regular"
+        android:textAllCaps="true"
+        android:layout_marginLeft="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBarSub"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="Attendance Report"
+        android:textSize="22dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:text="Student Names : "
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textColor="#615ee8"
+            android:layout_marginLeft="20dp" />
+
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:id="@+id/vRV_ReportAttendance" />
 
 </LinearLayout>

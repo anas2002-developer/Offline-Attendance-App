@@ -24,6 +24,7 @@ import com.anas.project2.R;
 import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
+import io.realm.RealmConfiguration;
 import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
 
@@ -35,7 +36,7 @@ public class AdapterStudRV extends RealmRecyclerViewAdapter<ModelStud, AdapterSt
 
     String dateNdRoom;
 
-    Realm realm = Realm.getDefaultInstance();
+    Realm realm;
     RealmChangeListener realmChangeListener;
 
 
@@ -60,7 +61,12 @@ public class AdapterStudRV extends RealmRecyclerViewAdapter<ModelStud, AdapterSt
         ModelStud temp = getItem(position);
 
         Realm.init(context);
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME)
+                .schemaVersion(0)
+                .allowWritesOnUiThread(true)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        realm = Realm.getInstance(realmConfiguration);
 
         holder.txtStud_name_row.setText(temp.getStud_name());
         holder.txtStud_uid_row.setText(temp.getStud_uid());
@@ -110,7 +116,12 @@ public class AdapterStudRV extends RealmRecyclerViewAdapter<ModelStud, AdapterSt
             radioA = itemView.findViewById(R.id.radioA);
 
             Realm.init(context);
-            realm = Realm.getDefaultInstance();
+            RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME)
+                    .schemaVersion(0)
+                    .allowWritesOnUiThread(true)
+                    .deleteRealmIfMigrationNeeded()
+                    .build();
+            realm = Realm.getInstance(realmConfiguration);
 
             realmChangeListener = new RealmChangeListener() {
                 @Override

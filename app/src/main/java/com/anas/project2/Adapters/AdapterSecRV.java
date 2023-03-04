@@ -20,6 +20,7 @@ import com.anas.project2.StudActivity;
 import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
+import io.realm.RealmConfiguration;
 import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
 
@@ -55,7 +56,12 @@ public class AdapterSecRV extends RealmRecyclerViewAdapter<ModelSec, AdapterSecR
         final ModelSec temp = getItem(position);
 
         Realm.init(context);
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME)
+                .schemaVersion(0)
+                .allowWritesOnUiThread(true)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        realm = Realm.getInstance(realmConfiguration);
 //        realmChangeListener = new RealmChangeListener() {
 //            @Override
 //            public void onChange(Object o) {

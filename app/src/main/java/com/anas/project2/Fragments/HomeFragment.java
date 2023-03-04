@@ -25,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
@@ -50,7 +51,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         Realm.init(getActivity());
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME)
+                .schemaVersion(0)
+                .allowWritesOnUiThread(true)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        realm = Realm.getInstance(realmConfiguration);
 
         txtSec_title = view.findViewById(R.id.txtSec_title);
         txtSec_desc = view.findViewById(R.id.txtSec_desc);

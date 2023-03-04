@@ -17,12 +17,13 @@ import com.anas.project2.Model.ModelReport;
 import java.util.Objects;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
 public class ReportsAttendanceActivity extends AppCompatActivity {
 
-    String room_id;
+    String date_room_id;
     String sec_name;
     String sub_name;
     String date;
@@ -30,7 +31,9 @@ public class ReportsAttendanceActivity extends AppCompatActivity {
     AdapterReportAttendanceRV adapterReportAttendanceRV;
     RecyclerView vRV_ReportAttendance;
 
-    TextView txtReportAttendance_title;
+    TextView txtRA_title;
+    TextView txtRA_desc;
+    TextView txtRA_desc2;
 
     Realm realm;
     RealmResults<ModelReportAttendance> results;
@@ -39,33 +42,45 @@ public class ReportsAttendanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports_attendance);
 
+        date_room_id = getIntent().getStringExtra("date_room_id");
+        sec_name = getIntent().getStringExtra("sec_name");
+        sub_name = getIntent().getStringExtra("sub_name");
+        date = getIntent().getStringExtra("date");
+
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Realm.init(this);
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME)
+                .schemaVersion(0)
+                .allowWritesOnUiThread(true)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        realm = Realm.getInstance(realmConfiguration);
         results = realm.where(ModelReportAttendance.class)
-                .equalTo("date_room_id", room_id)
+                .equalTo("date_room_id", date_room_id)
                 .sort("stud_name", Sort.ASCENDING)
                 .findAllAsync();
 
-        room_id = getIntent().getStringExtra("room_id");
-        sec_name = getIntent().getStringExtra("sec_name");
-        sub_name = getIntent().getStringExtra("sub_name");
-        date = getIntent().getStringExtra("date");
 
         Toolbar toolbarReportAttendance = findViewById(R.id.toolbarReportAttendance);
         setSupportActionBar(toolbarReportAttendance);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         vRV_ReportAttendance = findViewById(R.id.vRV_ReportAttendance);
-        txtReportAttendance_title = findViewById(R.id.txtReportAttendance_title);
+        txtRA_title = findViewById(R.id.txtRA_title);
+        txtRA_desc = findViewById(R.id.txtRA_desc);
+        txtRA_desc2 = findViewById(R.id.txtRA_desc2);
+
+        txtRA_title.setText(sub_name);
+        txtRA_desc.setText(sec_name);
+        txtRA_desc2.setText(date);
 
 
-        vRV_ReportAttendance.setHasFixedSize(true);
         vRV_ReportAttendance.setLayoutManager(new LinearLayoutManager(this));
 
-        adapterReportAttendanceRV = new AdapterReportAttendanceRV(results,room_id);
+        adapterReportAttendanceRV = new AdapterReportAttendanceRV(results,date_room_id);
         vRV_ReportAttendance.setAdapter(adapterReportAttendanceRV);
     }
 
