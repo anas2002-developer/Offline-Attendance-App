@@ -48,7 +48,7 @@
                 android:id="@+id/row_sugg"/>
             <item android:title="Share App"
                 android:icon="@drawable/share"
-                android:id="@+id/share"/>
+                android:id="@+id/row_share"/>
         </menu>
     </item>
 </menu>

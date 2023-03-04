@@ -7,11 +7,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.anas.project2.Fragments.HomeFragment;
+import com.anas.project2.Fragments.HowtouseFragment;
+import com.anas.project2.Fragments.SettingsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -71,7 +74,20 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Nav item", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_settings:
-                    Toast.makeText(this, "Nav item", Toast.LENGTH_SHORT).show();
+                    frag = new SettingsFragment();
+                    Toast.makeText(this, "Settings Frag", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.row_howtouse:
+                    frag = new HowtouseFragment();
+                    Toast.makeText(this, "Howtouse Frag", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.row_sugg:
+                    Suggestion();
+                    Toast.makeText(this, "Suggestion Frag", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.row_share:
+                    Share();
+                    Toast.makeText(this, "Share Frag", Toast.LENGTH_SHORT).show();
                     break;
             }
             layDL.closeDrawer(GravityCompat.START);
@@ -83,6 +99,29 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
+
+    private void Share() {
+
+        Intent iShare=new Intent(Intent.ACTION_SEND);
+        iShare.setType("text/plain");
+        iShare.putExtra(Intent.EXTRA_TEXT,"Download Attendify App, https://github.com/anas2002-developer/project2");
+
+        //for mutliple app chosing to open
+        startActivity(Intent.createChooser(iShare,"Share via"));
+
+    }
+
+    private void Suggestion() {
+        Intent iEmail=new Intent(Intent.ACTION_SEND);
+
+        //for differentiating email from share and other types
+        iEmail.setType("message/rfc822");
+        iEmail.putExtra(Intent.EXTRA_EMAIL,new String[]{"anas4112002@gmail.com","shrutisaini1415@gmail.com","sania.hasan2111@gmail.com"});
+        iEmail.putExtra(Intent.EXTRA_SUBJECT,"Bug Fix");
+        iEmail.putExtra(Intent.EXTRA_TEXT,"Please, Fix the bugs");
+        startActivity(Intent.createChooser(iEmail,"Email via"));
+    }
+
 
     private void loadFrag(Fragment frag) {
         getSupportFragmentManager().beginTransaction()

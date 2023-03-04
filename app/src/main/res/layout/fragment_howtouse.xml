@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.HowtouseFragment">
+
+    <TextView
+        android:id="@+id/txtHowtouse_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/bold"
+        android:text="How to Use"
+        android:textColor="@color/black"
+        android:textSize="28dp" />
+
+
+    <TextView
+        android:id="@+id/txtHowtouse_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtSec_title"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/bold"
+        android:text="(Sample Code)"
+        android:textColor="#A5A5A5"
+        android:textSize="18dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtHowtouse_para"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtSec_title"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/regular"
+            android:text="Abstract
+Problem Statement:
+The current attendance systems used in educational institutions are often manual, which require recording the attendance manually and using paper-based resources for maintaining the records. As the process is manual, not only is it prone to errors and discrepancies, but also it is time-consuming and tiresome. The other versions, like web-portal based systems involve uploading the attendance data to a separate source using the internet. These systems require an active internet connection and therefore it makes them unreliable and less accessible in areas with weak or no connectivity.
+
+Proposed solution:
+To address these issues, we propose “Attendify: a mobile based attendance system” which automates the attendance-taking process. It offers the teacher and student distinct login interfaces providing a user-friendly and personalized experience for both the groups. The application allows teachers to store the student data in a real-time database. The attendance is tracked using an Excel file stored in the device itself. This provides us with ease of access and easier way of maintaining the data while minimizing the usage of pen-and-paper system resources. As this system doesn’t rely on the internet, it is readily available for usage even if there are connectivity issues. Because our system is controlled solely by the teacher, it ensures the accuracy of attendance records, eliminates the possibility of fabricated or fake attendance and prevents other fraudulent activities that could occur within a manual system of attendance.
+Additionally, for the attendance marking on the student’s end, Attendify generates a unique QR code that the students can scan using their Attendify account to mark their attendance. When a student does so, the system automatically registers the attendance in the Excel file. This provides a secure and a convenient way to for the students to mark the attendance on their own, saving time which could be utilised for more productive activities.
+
+Potential impact:
+Attendify has the potential to revolutionize attendance taking in a wide range of fields, including not only educational institutions but also workplaces, hostels, and other organizations.
+In educational institutions, the proposed system can simplify attendance taking and provide more accurate records, leading to improved student performance and greater accountability. In workplaces, the system can be used to monitor employee attendance and track their leaves, which can lead to improved productivity and better management of resources. Attendify can also be used in hostels and other fields to monitor the attendance of residents, ensuring greater safety and security.
+Overall, Attendify has the potential to transform attendance taking and data management in a variety of fields leading to improved performance and more efficient resource management. With this ability, it can have a significant impact on attendance taking and data management across multiple sectors.
+"
+            android:textColor="#373737"
+            android:textSize="16dp" />
+    </ScrollView>
+
+</LinearLayout>
