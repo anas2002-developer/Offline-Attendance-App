@@ -74,6 +74,7 @@
             android:layout_height="wrap_content"
             android:text="A       P"
             android:fontFamily="@font/bold"
+            android:textColor="#615EE8"
             android:textSize="18dp"
             android:layout_marginLeft="18dp"
             android:id="@+id/txtStud_Status" />
