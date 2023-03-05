@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anas.project2.Model.Session;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -45,7 +46,10 @@ public class LoginActivty extends AppCompatActivity implements AdapterView.OnIte
         login_txtForgotPass=findViewById(R.id.login_txtForgotPass);
 
 
-
+        Session session = new Session(getApplicationContext());
+        if (session.checkUser()){
+            startActivity(new Intent(LoginActivty.this,MainActivity.class));
+        }
 
 
 

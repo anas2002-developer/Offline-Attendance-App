@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.anas.project2.LoginActivty;
+import com.anas.project2.Model.Session;
 import com.anas.project2.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -43,7 +44,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
     }
 
     public void logout(){
+
+        Session session = new Session(getActivity());
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getActivity(), LoginActivty.class));
+        session.logoutUser();
     }
 }

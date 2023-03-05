@@ -11,20 +11,21 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anas.project2.Model.Session;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     AppCompatButton signup_btnSignUp;
+    EditText signup_eName;
+    EditText signup_eUid;
     EditText signup_eEmail;
     EditText signup_ePass;
     TextView signup_txtLogin;
@@ -38,6 +39,8 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         signup_btnSignUp=findViewById(R.id.signup_btnSignUp);
+        signup_eName=findViewById(R.id.signup_eName);
+        signup_eUid =findViewById(R.id.signup_eUid);
         signup_eEmail=findViewById(R.id.signup_eEmail);
         signup_ePass=findViewById(R.id.signup_ePass);
         signup_txtLogin=findViewById(R.id.signup_txtLogin);
@@ -60,8 +63,13 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
     public void signup(View v){
 
-        String email = signup_eEmail.getText().toString().trim();
-        String password = signup_ePass.getText().toString().trim();
+        //saving user details
+        String name=signup_eName.getText().toString().trim();
+        String contact= signup_eUid.getText().toString().trim();
+        String email=signup_eEmail.getText().toString().trim();
+        String password=signup_ePass.getText().toString().trim();
+        Session session = new Session(getApplicationContext());
+        session.saveUser(name,contact,email,password);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -73,6 +81,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                             signup_eEmail.setText("");
                             signup_ePass.setText("");
                             Toast.makeText(SignUpActivity.this, "Registred", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignUpActivity.this,LoginActivty.class));
                         } else {
                             signup_eEmail.setText("");
                             signup_ePass.setText("");
