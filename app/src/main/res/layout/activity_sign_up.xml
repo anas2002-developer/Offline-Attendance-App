@@ -61,7 +61,7 @@
                 android:textColorHint="#A5A5A5"
                 android:hint="Enter Uid/Eid"
                 android:fontFamily="@font/regular"
-                android:inputType="number"
+                android:inputType="text"
                 android:maxLength="10"
                 android:maxLines="1"
                 android:padding="15dp"

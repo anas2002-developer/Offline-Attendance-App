@@ -2,16 +2,21 @@ package com.anas.project2;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +33,13 @@ import com.anas.project2.Model.ModelReport;
 import com.anas.project2.Model.ModelStud;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -64,6 +76,10 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
     RealmResults<ModelStud> results;
     RealmAsyncTask transaction;
     RealmChangeListener realmChangeListener;
+
+    File filePath;
+    String fileName = "720";
+    String sheetName = "Science";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +126,13 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
 //        vRV_Stud.setAdapter(adapterStudRV);
 
 
+        ActivityCompat.requestPermissions(StudActivity.this
+                , new String[]{
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                }
+                , PackageManager.PERMISSION_GRANTED);
+
         fabStud.setOnClickListener(this::onClick);
         btnExcel.setOnClickListener(this::onClick);
         btnReport.setOnClickListener(this::onClick);
@@ -133,7 +156,97 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void excel(String sec_name, String date) {
+        fileName = sec_name+" "+date;
+        sheetName = sub_name;
+        filePath = new File(Environment.getExternalStorageDirectory() + "/" + fileName + ".xls");
+        if (!filePath.exists()) {
+
+
+            HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
+            HSSFSheet hssfSheet = hssfWorkbook.createSheet(sheetName);
+
+            int firstRow = -1;
+
+                for (ModelStud model : adapterStudRV.arrPresent) {
+                    HSSFRow hssfRow = hssfSheet.createRow(++firstRow);
+                    hssfRow.createCell(0).setCellValue(model.getStud_name());
+                    hssfRow.createCell(1).setCellValue(model.getStud_uid());
+                    hssfRow.createCell(2).setCellValue("Present");
+                }
+            for (ModelStud model : adapterStudRV.arrAbsent) {
+                HSSFRow hssfRow = hssfSheet.createRow(++firstRow);
+                hssfRow.createCell(0).setCellValue(model.getStud_name());
+                hssfRow.createCell(1).setCellValue(model.getStud_uid());
+                hssfRow.createCell(2).setCellValue("Absent");
+            }
+                try {
+                    filePath.createNewFile();
+                    FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+                    hssfWorkbook.write(fileOutputStream);
+                    Toast.makeText(getApplicationContext(), fileName + " File Created", Toast.LENGTH_SHORT).show();
+
+                    if (fileOutputStream != null) {
+                        fileOutputStream.flush();
+                        fileOutputStream.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        }
+
+        else {
+            try {
+                FileInputStream fileInputStream = new FileInputStream(filePath);
+                HSSFWorkbook hssfWorkbook = new HSSFWorkbook(fileInputStream);
+                HSSFSheet hssfSheet = null;
+                int sheetCount = hssfWorkbook.getNumberOfSheets();
+
+                for (int i=0;i<=sheetCount;i++){
+                    if (hssfWorkbook.getSheetName(i).equals(sheetName)){
+                        hssfSheet = hssfWorkbook.getSheet(sheetName);
+                        break;
+                    }
+                    else {
+                        hssfSheet = hssfWorkbook.createSheet(sheetName);
+                        break;
+                    }
+                }
+
+                int lastRow = hssfSheet.getLastRowNum();
+
+
+                    for (ModelStud model : adapterStudRV.arrPresent){
+                        HSSFRow hssfRow = hssfSheet.createRow(++lastRow);
+                        hssfRow.createCell(0).setCellValue(model.getStud_name());
+                        hssfRow.createCell(1).setCellValue(model.getStud_uid());
+                        hssfRow.createCell(2).setCellValue("Present");
+                    }
+                    for (ModelStud model : adapterStudRV.arrAbsent){
+                        HSSFRow hssfRow = hssfSheet.createRow(++lastRow);
+                        hssfRow.createCell(0).setCellValue(model.getStud_name());
+                        hssfRow.createCell(1).setCellValue(model.getStud_uid());
+                        hssfRow.createCell(2).setCellValue("Absent");
+                    }
+
+                    fileInputStream.close();
+
+                    FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+                    hssfWorkbook.write(fileOutputStream);
+                    Toast.makeText(getApplicationContext(), fileName+" File Updated", Toast.LENGTH_SHORT).show();
+                    fileOutputStream.close();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+
     private void CheckAllTick() {
+
         long count = realm.where(ModelStud.class)
                 .equalTo("room_id", room_id)
                 .count();
@@ -172,6 +285,8 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
             @SuppressLint("SimpleDateFormat")
             final String monthOnly = new SimpleDateFormat("MMM").format(calendar.getTime());
 
+            excel(sec_name,date);
+
             try {
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
@@ -192,7 +307,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
                 editor.commit();
-                Toast.makeText(StudActivity.this, "Attendance Submitted", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(StudActivity.this, "Attendance Submitted", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
 
 

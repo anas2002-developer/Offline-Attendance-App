@@ -21,6 +21,8 @@ import com.anas.project2.Model.ModelSec;
 import com.anas.project2.Model.ModelStud;
 import com.anas.project2.R;
 
+import java.util.ArrayList;
+
 import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
@@ -39,6 +41,9 @@ public class AdapterStudRV extends RealmRecyclerViewAdapter<ModelStud, AdapterSt
     Realm realm;
     RealmChangeListener realmChangeListener;
 
+
+    public ArrayList<ModelStud> arrAbsent=new ArrayList<>();
+    public ArrayList<ModelStud> arrPresent=new ArrayList<>();
 
     OrderedRealmCollection<ModelStud> data;
     public AdapterStudRV(OrderedRealmCollection<ModelStud> data, String dateNdRoom) {
@@ -156,6 +161,7 @@ public class AdapterStudRV extends RealmRecyclerViewAdapter<ModelStud, AdapterSt
                     editor.apply();
 
 
+                    arrPresent.add(data.get(getAdapterPosition()));
 
                     final ModelReportAttendance model = new ModelReportAttendance();
                     realm.executeTransaction(new Realm.Transaction() {
@@ -182,7 +188,7 @@ public class AdapterStudRV extends RealmRecyclerViewAdapter<ModelStud, AdapterSt
                     editor.putString(data.get(getAdapterPosition()).getStud_uid(), status);
                     editor.apply();
 
-
+                    arrAbsent.add(data.get(getAdapterPosition()));
 
                     final ModelReportAttendance model = new ModelReportAttendance();
                     realm.executeTransaction(new Realm.Transaction() {

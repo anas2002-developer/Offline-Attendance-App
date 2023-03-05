@@ -109,7 +109,7 @@
             android:fontFamily="@font/bold"
             android:inputType="textCapSentences"
             android:elevation="10dp"
-            android:text="Excel"
+            android:text="Submit"
             android:shadowColor="#7061D7"
             android:textColor="@color/white"
             android:textSize="15sp" />
