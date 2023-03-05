@@ -61,9 +61,6 @@
             app:cardCornerRadius="15dp"
             app:cardMaxElevation="2dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/forgot_eEmail"
@@ -77,7 +74,7 @@
                     android:shadowColor="@color/white"
                     android:textColorHint="#A5A5A5"
                     android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+
 
 
 

@@ -35,9 +35,7 @@
             android:layout_marginLeft="30dp"
             app:cardCornerRadius="15dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="52dp">
+
 
                 <EditText
                     android:id="@+id/login_eEmail"
@@ -50,7 +48,6 @@
                     android:padding="15dp"
                     android:background="@color/white" />
 
-            </com.google.android.material.textfield.TextInputLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView

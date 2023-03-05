@@ -65,11 +65,10 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
         //saving user details
         String name=signup_eName.getText().toString().trim();
-        String contact= signup_eUid.getText().toString().trim();
+        String uid= signup_eUid.getText().toString().trim();
         String email=signup_eEmail.getText().toString().trim();
         String password=signup_ePass.getText().toString().trim();
-        Session session = new Session(getApplicationContext());
-        session.saveUser(name,contact,email,password);
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -81,7 +80,13 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                             signup_eEmail.setText("");
                             signup_ePass.setText("");
                             Toast.makeText(SignUpActivity.this, "Registred", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignUpActivity.this,LoginActivty.class));
+                            Intent i = new Intent(SignUpActivity.this,LoginActivty.class);
+                            i.putExtra("name",name);
+                            i.putExtra("uid",uid);
+                            i.putExtra("email",email);
+                            i.putExtra("password",password);
+                            startActivity(i);
+
                         } else {
                             signup_eEmail.setText("");
                             signup_ePass.setText("");

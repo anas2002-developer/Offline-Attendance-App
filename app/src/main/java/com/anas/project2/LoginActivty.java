@@ -24,6 +24,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivty extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
+    String name;
+    String uid;
+    String email;
+    String password;
+
     AppCompatButton login_btnLogin;
     EditText login_eEmail;
     EditText login_ePass;
@@ -46,10 +51,6 @@ public class LoginActivty extends AppCompatActivity implements AdapterView.OnIte
         login_txtForgotPass=findViewById(R.id.login_txtForgotPass);
 
 
-        Session session = new Session(getApplicationContext());
-        if (session.checkUser()){
-            startActivity(new Intent(LoginActivty.this,MainActivity.class));
-        }
 
 
 
@@ -68,8 +69,13 @@ public class LoginActivty extends AppCompatActivity implements AdapterView.OnIte
     public void login2(View v){
 
 
-        String email = login_eEmail.getText().toString().trim();
-        String password = login_ePass.getText().toString().trim();
+        name = getIntent().getStringExtra("name");
+        uid = getIntent().getStringExtra("uid");
+        email=login_eEmail.getText().toString().trim();
+        password=login_ePass.getText().toString().trim();
+
+        Session session = new Session(getApplicationContext());
+        session.saveUser(name,uid,email,password);
 
         mAuth = FirebaseAuth.getInstance();
 

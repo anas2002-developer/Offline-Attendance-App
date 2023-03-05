@@ -12,8 +12,11 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.anas.project2.Fragments.AttendanceTrackerFragment;
 import com.anas.project2.Fragments.HomeFragment;
 import com.anas.project2.Fragments.HowtouseFragment;
+import com.anas.project2.Fragments.ProfileFragment;
+import com.anas.project2.Fragments.QRFragment;
 import com.anas.project2.Fragments.SettingsFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -65,13 +68,16 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Home Frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_attendance_track:
-                    Toast.makeText(this, "Nav item", Toast.LENGTH_SHORT).show();
+                    frag = new AttendanceTrackerFragment();
+                    Toast.makeText(this, "AT Frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_qr:
-                    Toast.makeText(this, "Nav item", Toast.LENGTH_SHORT).show();
+                    frag = new QRFragment();
+                    Toast.makeText(this, "QR Frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_profile:
-                    Toast.makeText(this, "Nav item", Toast.LENGTH_SHORT).show();
+                    frag = new ProfileFragment();
+                    Toast.makeText(this, "Profile frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_settings:
                     frag = new SettingsFragment();

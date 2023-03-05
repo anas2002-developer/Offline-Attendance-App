@@ -10,20 +10,21 @@ public class Session {
 
     Context context;
     SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
-    private final static String SP_NAME = "Attendify";
-    private SharedPreferences.Editor editor;
+    private final  String SP_SNAME = "Attendify";
+
 
     public Session(Context context) {
         this.context = context;
-        sp=context.getSharedPreferences("Attendify",Context.MODE_PRIVATE);
+        sp=context.getSharedPreferences(SP_SNAME,Context.MODE_PRIVATE);
         editor=sp.edit();
     }
 
-    public void saveUser(String name, String contact, String email, String pass){
+    public void saveUser(String name, String uid, String email, String pass){
 
         editor.putString("SP_NAME",name);
-        editor.putString("SP_CONTACT",contact);
+        editor.putString("SP_UID",uid);
         editor.putString("SP_EMAIL",email);
         editor.putString("SP_PASS",pass);
         editor.putBoolean("SP_LOGGED_IN",true);
