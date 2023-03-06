@@ -65,35 +65,27 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.row_home:
                     frag = new HomeFragment();
-                    Toast.makeText(this, "Home Frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_attendance_track:
                     frag = new AttendanceTrackerFragment();
-                    Toast.makeText(this, "AT Frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_qr:
                     frag = new QRFragment();
-                    Toast.makeText(this, "QR Frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_profile:
                     frag = new ProfileFragment();
-                    Toast.makeText(this, "Profile frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_settings:
                     frag = new SettingsFragment();
-                    Toast.makeText(this, "Settings Frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_howtouse:
                     frag = new HowtouseFragment();
-                    Toast.makeText(this, "Howtouse Frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_sugg:
                     Suggestion();
-                    Toast.makeText(this, "Suggestion Frag", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.row_share:
                     Share();
-                    Toast.makeText(this, "Share Frag", Toast.LENGTH_SHORT).show();
                     break;
             }
             layDL.closeDrawer(GravityCompat.START);
@@ -110,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent iShare=new Intent(Intent.ACTION_SEND);
         iShare.setType("text/plain");
-        iShare.putExtra(Intent.EXTRA_TEXT,"Download Attendify App, https://github.com/anas2002-developer/project2");
+        iShare.putExtra(Intent.EXTRA_TEXT,"Download Attendify App, https://drive.google.com/file/d/1zWF6_n5vxwTPPSPQHCGC2nhJsVfVzPv2/view?usp=sharing");
 
         //for mutliple app chosing to open
         startActivity(Intent.createChooser(iShare,"Share via"));

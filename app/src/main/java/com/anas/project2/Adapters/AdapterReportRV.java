@@ -76,7 +76,6 @@ public class AdapterReportRV extends RealmRecyclerViewAdapter<ModelReport, Adapt
                 intent.putExtra("sub_name", data.get(position).getSub_name());
                 intent.putExtra("sec_name", data.get(position).getSec_name());
                 context.startActivity(intent);
-                Toast.makeText(context, "Add Intent to report attendance", Toast.LENGTH_SHORT).show();
             }
         });
 

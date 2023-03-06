@@ -32,6 +32,7 @@
         android:layout_below="@id/txtSec_title"
         android:id="@+id/txtSec_desc" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vRV"
         android:layout_width="match_parent"

@@ -90,7 +90,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                         } else {
                             signup_eEmail.setText("");
                             signup_ePass.setText("");
-                            Toast.makeText(SignUpActivity.this, "Internet Issue", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Internet Issue/already registered", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

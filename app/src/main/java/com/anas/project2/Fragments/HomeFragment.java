@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.anas.project2.Adapters.AdapterSecRV;
 import com.anas.project2.Model.ModelSec;
 import com.anas.project2.R;
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     TextView txtSec_desc;
     FloatingActionButton fabSec;
     RecyclerView vRV;
+
+    LottieAnimationView lottie;
 
     AdapterSecRV adapterSecRV;
 

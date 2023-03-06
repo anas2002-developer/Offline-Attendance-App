@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">project2</string>
+    <string name="app_name">Attendify</string>
     <string name="open_drawer">OpenDrawer</string>
     <string name="close_drawer">CloseDrawer</string>
     <!-- TODO: Remove or change this placeholder text -->

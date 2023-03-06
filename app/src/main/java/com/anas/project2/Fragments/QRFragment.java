@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anas.project2.QRScanner;
 import com.anas.project2.R;
@@ -59,23 +60,28 @@ public class QRFragment extends Fragment {
         qr_fabGenerate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Gqr = qr_eGenerate.getText().toString().trim();
+                String Gqr = qr_eGenerate.getText().toString();
                 MultiFormatWriter writer = new MultiFormatWriter();
 
-                try {
-                    BitMatrix matrix = writer.encode(Gqr, BarcodeFormat.QR_CODE,
-                            260,320);
-                    BarcodeEncoder encoder = new BarcodeEncoder();
-                    Bitmap bitmap = encoder.createBitmap(matrix);
-                    qr_img.setImageBitmap(bitmap);
-                    InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(
-                            Context.INPUT_METHOD_SERVICE
-                    );
-                    manager.hideSoftInputFromWindow(qr_eGenerate.getApplicationWindowToken(),
-                            0);
-                } catch (WriterException e) {
-                    e.printStackTrace();
-                }
+                    try {
+                        if (!(Gqr.equals(""))) {
+                            BitMatrix matrix = writer.encode(Gqr, BarcodeFormat.QR_CODE,
+                                    260, 320);
+                            BarcodeEncoder encoder = new BarcodeEncoder();
+                            Bitmap bitmap = encoder.createBitmap(matrix);
+                            qr_img.setImageBitmap(bitmap);
+                            InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(
+                                    Context.INPUT_METHOD_SERVICE
+                            );
+                            manager.hideSoftInputFromWindow(qr_eGenerate.getApplicationWindowToken(),
+                                    0);
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Enter Section first", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
             }
         });
 

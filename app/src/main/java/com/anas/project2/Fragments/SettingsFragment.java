@@ -47,6 +47,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
 
         Session session = new Session(getActivity());
         FirebaseAuth.getInstance().signOut();
+        getActivity().finish();
         session.logoutUser();
     }
 }

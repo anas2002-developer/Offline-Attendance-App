@@ -88,7 +88,6 @@ public class AdapterSecRV extends RealmRecyclerViewAdapter<ModelSec, AdapterSecR
                 i.putExtra("sub_name",temp.getSub_name());
                 i.putExtra("room_id",temp.getId());
                 context.startActivity(i);
-                Toast.makeText(holder.itemView.getContext(), "itemView", Toast.LENGTH_SHORT).show();
             }
         });
 
