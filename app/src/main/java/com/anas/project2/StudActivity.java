@@ -17,6 +17,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.storage.StorageManager;
+import android.os.storage.StorageVolume;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +45,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
@@ -128,7 +131,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
 
         ActivityCompat.requestPermissions(StudActivity.this
                 , new String[]{
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE
                 }
                 , PackageManager.PERMISSION_GRANTED);
@@ -157,9 +160,11 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void excel(String sec_name, String date) {
-        fileName = sec_name+" "+date;
+        fileName = sec_name+"_"+date;
         sheetName = sub_name;
+
         filePath = new File(Environment.getExternalStorageDirectory() + "/" + fileName + ".xls");
+
         if (!filePath.exists()) {
 
 
