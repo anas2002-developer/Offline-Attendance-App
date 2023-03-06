@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anas.project2.R;
 
@@ -63,37 +64,38 @@ public class AttendanceTrackerFragment extends Fragment {
             public void onClick(View v) {
                 AT_card.setVisibility(View.VISIBLE);
 
+                String la = AT_eLA.getText().toString().trim();
+                String ta = AT_eTA.getText().toString().trim();
+                String critera = AT_eCriteria.getText().toString().trim();
 
-                float LA = Integer.parseInt(AT_eLA.getText().toString().trim());
-                float TA = Integer.parseInt(AT_eTA.getText().toString().trim());
-                float Criteria = Integer.parseInt(AT_eCriteria.getText().toString().trim());
+                if (la.equals("") || ta.equals("") || critera.equals("")) {
+                    Toast.makeText(getActivity(), "Enter details first", Toast.LENGTH_SHORT).show();
+                } else {
+                    float LA = Integer.parseInt(AT_eLA.getText().toString().trim());
+                    float TA = Integer.parseInt(AT_eTA.getText().toString().trim());
+                    float Criteria = Integer.parseInt(AT_eCriteria.getText().toString().trim());
 
-                AT_txtSub.setText(AT_eSub.getText().toString().trim());
-                AT_txtLA.setText(String.format("%.0f",LA)+"    /");
-                AT_txtTA.setText(String.format("%.0f",TA));
+
+                    AT_txtSub.setText(AT_eSub.getText().toString().trim());
+                    AT_txtLA.setText(String.format("%.0f", LA) + "    /");
+                    AT_txtTA.setText(String.format("%.0f", TA));
 
 
-                double x = (TA*Criteria)/100;
-                double bunk = LA - (Math.ceil(x));
+                    double x = (TA * Criteria) / 100;
+                    double bunk = LA - (Math.ceil(x));
 
-                AT_txtBunk.setText("Can Skip : (" + String.format("%.0f",bunk) + ") lectures");
+                    AT_txtBunk.setText("Can Skip : (" + String.format("%.0f", bunk) + ") lectures");
 
-                float percent = (LA/TA)*100;
-                AT_txtPer.setText(String.format("%.2f",percent)+"%");
-                AT_progress.setProgress((int) percent);
+                    float percent = (LA / TA) * 100;
+                    AT_txtPer.setText(String.format("%.2f", percent) + "%");
+                    AT_progress.setProgress((int) percent);
+
+
+                }
 
 
             }
         });
-
-
-
-
-
-
-
-
-
 
 
         return view;

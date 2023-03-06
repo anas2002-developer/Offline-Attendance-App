@@ -373,7 +373,6 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
                         progressDialog.dismiss();
                         realm.refresh();
                         realm.setAutoRefresh(true);
-                        Toast.makeText(StudActivity.this, "Successfully created", Toast.LENGTH_SHORT).show();
                     }
                 }, new Realm.Transaction.OnError() {
                     @Override
@@ -394,7 +393,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         dialog.show();
-        Toast.makeText(StudActivity.this, "Create student", Toast.LENGTH_SHORT).show();
+
     }
 
 

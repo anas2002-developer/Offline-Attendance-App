@@ -62,18 +62,18 @@
             app:cardMaxElevation="2dp">
 
 
-                <EditText
-                    android:id="@+id/forgot_eEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:background="@color/white"
-                    android:hint="Enter Email"
-                    android:padding="15dp"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:shadowColor="@color/white"
-                    android:textColorHint="#A5A5A5"
-                    android:textSize="16sp" />
+            <EditText
+                android:id="@+id/forgot_eEmail"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:background="@color/white"
+                android:hint="Enter Email"
+                android:padding="15dp"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:shadowColor="@color/white"
+                android:textColorHint="#A5A5A5"
+                android:textSize="16sp" />
 
 
 

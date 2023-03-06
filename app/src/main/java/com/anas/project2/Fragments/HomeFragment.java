@@ -134,7 +134,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         progressDialog.dismiss();
                         realm.refresh();
                         realm.setAutoRefresh(true);
-                        Toast.makeText(getActivity(), "Successfully created", Toast.LENGTH_SHORT).show();
+
                     }
                 }, new Realm.Transaction.OnError() {
                     @Override
@@ -155,7 +155,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             }
         });
         dialog.show();
-        Toast.makeText(getActivity(), "Create Sec", Toast.LENGTH_SHORT).show();
+
     }
 
 }
