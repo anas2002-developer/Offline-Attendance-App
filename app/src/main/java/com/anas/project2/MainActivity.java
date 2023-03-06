@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent iShare=new Intent(Intent.ACTION_SEND);
         iShare.setType("text/plain");
-        iShare.putExtra(Intent.EXTRA_TEXT,"Download Attendify App, https://drive.google.com/file/d/1zWF6_n5vxwTPPSPQHCGC2nhJsVfVzPv2/view?usp=sharing");
+        iShare.putExtra(Intent.EXTRA_TEXT,"Download Attendify App, https://drive.google.com/file/d/12_kTsi_8LvP5WSHyq47Wz7HwTDQ4Ztb5/view?usp=sharing");
 
         //for mutliple app chosing to open
         startActivity(Intent.createChooser(iShare,"Share via"));
