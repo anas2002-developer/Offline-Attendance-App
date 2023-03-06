@@ -63,7 +63,7 @@
         android:layout_below="@id/txtStud_desc">
     <TextView
         android:id="@+id/txtTotalStuds"
-        android:layout_width="260dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:text="Total Studs : "
