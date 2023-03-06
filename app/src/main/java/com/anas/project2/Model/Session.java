@@ -24,7 +24,7 @@ public class Session {
     public void saveUser(String name, String uid, String email, String pass){
 
         editor.putString("SP_NAME",name);
-        editor.putString("SP_UID",uid);
+        editor.putString("SP_UIDp'",uid);
         editor.putString("SP_EMAIL",email);
         editor.putString("SP_PASS",pass);
         editor.putBoolean("SP_LOGGED_IN",true);

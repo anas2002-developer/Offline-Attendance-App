@@ -22,4 +22,12 @@
         <item name="android:foreground">@drawable/fab_silver</item>
     </style>
 
+    <style name="floating_qr" parent="Widget.Design.FloatingActionButton">
+        <item name="android:foreground">@drawable/fab_qr_purple</item>
+    </style>
+
+    <style name="floating_qr_silver" parent="Widget.Design.FloatingActionButton">
+        <item name="android:foreground">@drawable/fab_qr_silver</item>
+    </style>
+
 </resources>
