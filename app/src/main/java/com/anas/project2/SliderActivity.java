@@ -36,10 +36,11 @@ public class SliderActivity extends AppCompatActivity {
 
         ArrayList<SlideModel> arrSlides = new ArrayList<>();
 
-        arrSlides.add(new SlideModel(R.drawable.img, ScaleTypes.FIT));
-        arrSlides.add(new SlideModel(R.drawable.img, ScaleTypes.FIT));
-        arrSlides.add(new SlideModel(R.drawable.img, ScaleTypes.FIT));
-        arrSlides.add(new SlideModel(R.drawable.img, ScaleTypes.FIT));
+        arrSlides.add(new SlideModel(R.drawable.slider1, ScaleTypes.FIT));
+        arrSlides.add(new SlideModel(R.drawable.slider2, ScaleTypes.FIT));
+        arrSlides.add(new SlideModel(R.drawable.slider3, ScaleTypes.FIT));
+        arrSlides.add(new SlideModel(R.drawable.slider4, ScaleTypes.FIT));
+        arrSlides.add(new SlideModel(R.drawable.slider5, ScaleTypes.FIT));
 
         slider2.setImageList(arrSlides, ScaleTypes.FIT);
 
