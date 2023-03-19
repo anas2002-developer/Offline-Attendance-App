@@ -32,6 +32,17 @@
         android:layout_below="@id/txtSec_title"
         android:id="@+id/txtSec_desc" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="26dp"
+        android:layout_marginTop="22dp"
+        app:lottie_rawRes="@raw/cycler">
+    </com.airbnb.lottie.LottieAnimationView>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vRV"

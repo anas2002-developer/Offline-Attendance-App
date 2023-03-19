@@ -163,7 +163,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
         fileName = sec_name+"_"+date;
         sheetName = sub_name;
 
-        filePath = new File(Environment.getExternalStorageDirectory() + "/" + fileName + ".xls");
+        filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + fileName + ".xls");
 
         if (!filePath.exists()) {
 

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tool="http//schemas.android.com/tools"
-    tool:showIn ="navigation_view">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group
-        android:checkableBehavior="single">
 
-        <item android:title="General">
-            <menu>
+
+    <item android:title="General">
+        <menu>
+        <group
+            android:checkableBehavior="single">
 
                 <item
                     android:id="@+id/row_home"
@@ -34,14 +33,16 @@
                 <item android:title="Settings"
                     android:id="@+id/row_settings"
                     android:icon="@drawable/settings"/>
-            </menu>
-        </item>
 
+        </group>
+        </menu>
+    </item>
 
-    </group>
 
     <item android:title="Communicate">
         <menu>
+            <group
+                android:checkableBehavior="single">
             <item
                 android:title="How To Use"
                 android:icon="@drawable/howtouse"
@@ -53,6 +54,7 @@
             <item android:title="Share App"
                 android:icon="@drawable/share"
                 android:id="@+id/row_share"/>
+            </group>
         </menu>
     </item>
 </menu>
