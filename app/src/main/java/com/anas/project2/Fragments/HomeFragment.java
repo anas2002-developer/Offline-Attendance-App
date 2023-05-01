@@ -21,17 +21,18 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.anas.project2.Adapters.AdapterSecRV;
 import com.anas.project2.Model.ModelSec;
+import com.anas.project2.Model.ModelSecFB;
 import com.anas.project2.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
-public class HomeFragment extends Fragment implements View.OnClickListener{
-
-
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
     TextView txtSec_title;
@@ -76,21 +77,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         vRV.setAdapter(adapterSecRV);
 
 
-
         return view;
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fabSec:
                 CreateSec();
                 break;
         }
     }
 
-    private void CreateSec(){
+    private void CreateSec() {
 
         Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog_sec2);
@@ -110,10 +110,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             String SecName = eSec_name.getText().toString();
             String SubName = eSub_name.getText().toString();
 
-            if (SecName.equals("")){
+            if (SecName.equals("")) {
                 Toast.makeText(getActivity(), "Blank Field!", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 final ProgressDialog progressDialog = new ProgressDialog(getActivity());
                 progressDialog.setMessage("Creating Section..");
                 progressDialog.show();
@@ -121,9 +120,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 transaction = realm.executeTransactionAsync(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        int i=0;
+                        int i = 0;
                         ModelSec model = realm.createObject(ModelSec.class);
-                        String id = SecName+SubName;
+                        String id = SecName +"_"+ SubName;
                         model.setSec_name(SecName);
                         model.setSub_name(SubName);
                         model.setId(id);
@@ -143,6 +142,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+                ModelSecFB model2 = new ModelSecFB(SecName, SubName);
+                FirebaseDatabase.getInstance().getReference().child("ATTENDIFY")
+                        .child(FirebaseAuth.getInstance().getUid())
+                        .child("SECTIONS")
+                        .child(SecName + "_" + SubName)
+                        .setValue(model2);
 
                 dialog.dismiss();
             }

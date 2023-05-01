@@ -15,11 +15,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anas.project2.Model.ModelProfileFB;
 import com.anas.project2.Model.Session;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -65,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
         //saving user details
         String name=signup_eName.getText().toString().trim();
-        String uid= signup_eUid.getText().toString().trim();
+        String eid= signup_eUid.getText().toString().trim();
         String email=signup_eEmail.getText().toString().trim();
         String password=signup_ePass.getText().toString().trim();
 
@@ -77,14 +79,20 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            signup_eEmail.setText("");
-                            signup_ePass.setText("");
-                            Toast.makeText(SignUpActivity.this, "Registred", Toast.LENGTH_SHORT).show();
+
+
+                            ModelProfileFB model = new ModelProfileFB(name,eid);
+                            FirebaseDatabase.getInstance().getReference().child("ATTENDIFY")
+                                            .child(FirebaseAuth.getInstance().getUid())
+                                                    .child("PROFILE")
+                                                            .setValue(model);
+
+                            Toast.makeText(SignUpActivity.this, "Registered", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(SignUpActivity.this,LoginActivty.class);
-                            i.putExtra("name",name);
-                            i.putExtra("uid",uid);
-                            i.putExtra("email",email);
-                            i.putExtra("password",password);
+//                            i.putExtra("name",name);
+//                            i.putExtra("uid",uid);
+//                            i.putExtra("email",email);
+//                            i.putExtra("password",password);
                             startActivity(i);
 
                         } else {

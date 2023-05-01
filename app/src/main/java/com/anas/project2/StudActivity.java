@@ -32,8 +32,12 @@ import android.widget.Toast;
 import com.anas.project2.Adapters.AdapterStudRV;
 import com.anas.project2.Model.ModelReportAttendance;
 import com.anas.project2.Model.ModelReport;
+import com.anas.project2.Model.ModelSecFB;
 import com.anas.project2.Model.ModelStud;
+import com.anas.project2.Model.ModelStudFB;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -58,7 +62,7 @@ import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-public class StudActivity extends AppCompatActivity implements View.OnClickListener{
+public class StudActivity extends AppCompatActivity implements View.OnClickListener {
 
     String sec_name;
     String sub_name;
@@ -110,9 +114,9 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
         txtStud_desc = findViewById(R.id.txtStud_desc);
         txtTotalStuds = findViewById(R.id.txtTotalStuds);
 
-        fabStud=findViewById(R.id.fabStud);
-        btnReport=findViewById(R.id.btnReport);
-        btnExcel=findViewById(R.id.btnExcel);
+        fabStud = findViewById(R.id.fabStud);
+        btnReport = findViewById(R.id.btnReport);
+        btnExcel = findViewById(R.id.btnExcel);
 //        btnExcel.setVisibility(View.GONE);
         vRV_Stud = findViewById(R.id.vRV_Stud);
         vRV_Stud.setLayoutManager(new LinearLayoutManager(StudActivity.this));
@@ -142,11 +146,10 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fabStud:
                 CreateStudent();
                 break;
@@ -160,7 +163,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void excel(String sec_name, String date) {
-        fileName = sec_name+"_"+date;
+        fileName = sec_name + "_" + date;
         sheetName = sub_name;
 
         filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + fileName + ".xls");
@@ -173,46 +176,43 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
 
             int firstRow = -1;
 
-                for (ModelStud model : adapterStudRV.arrPresent) {
-                    HSSFRow hssfRow = hssfSheet.createRow(++firstRow);
-                    hssfRow.createCell(0).setCellValue(model.getStud_name());
-                    hssfRow.createCell(1).setCellValue(model.getStud_uid());
-                    hssfRow.createCell(2).setCellValue("Present");
-                }
+            for (ModelStud model : adapterStudRV.arrPresent) {
+                HSSFRow hssfRow = hssfSheet.createRow(++firstRow);
+                hssfRow.createCell(0).setCellValue(model.getStud_name());
+                hssfRow.createCell(1).setCellValue(model.getStud_uid());
+                hssfRow.createCell(2).setCellValue("Present");
+            }
             for (ModelStud model : adapterStudRV.arrAbsent) {
                 HSSFRow hssfRow = hssfSheet.createRow(++firstRow);
                 hssfRow.createCell(0).setCellValue(model.getStud_name());
                 hssfRow.createCell(1).setCellValue(model.getStud_uid());
                 hssfRow.createCell(2).setCellValue("Absent");
             }
-                try {
-                    filePath.createNewFile();
-                    FileOutputStream fileOutputStream = new FileOutputStream(filePath);
-                    hssfWorkbook.write(fileOutputStream);
-                    Toast.makeText(getApplicationContext(), fileName + " File Created", Toast.LENGTH_SHORT).show();
+            try {
+                filePath.createNewFile();
+                FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+                hssfWorkbook.write(fileOutputStream);
+                Toast.makeText(getApplicationContext(), fileName + " File Created", Toast.LENGTH_SHORT).show();
 
-                    if (fileOutputStream != null) {
-                        fileOutputStream.flush();
-                        fileOutputStream.close();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (fileOutputStream != null) {
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
                 }
-        }
-
-        else {
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
             try {
                 FileInputStream fileInputStream = new FileInputStream(filePath);
                 HSSFWorkbook hssfWorkbook = new HSSFWorkbook(fileInputStream);
                 HSSFSheet hssfSheet = null;
                 int sheetCount = hssfWorkbook.getNumberOfSheets();
 
-                for (int i=0;i<=sheetCount;i++){
-                    if (hssfWorkbook.getSheetName(i).equals(sheetName)){
+                for (int i = 0; i <= sheetCount; i++) {
+                    if (hssfWorkbook.getSheetName(i).equals(sheetName)) {
                         hssfSheet = hssfWorkbook.getSheet(sheetName);
                         break;
-                    }
-                    else {
+                    } else {
                         hssfSheet = hssfWorkbook.createSheet(sheetName);
                         break;
                     }
@@ -221,33 +221,30 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
                 int lastRow = hssfSheet.getLastRowNum();
 
 
-                    for (ModelStud model : adapterStudRV.arrPresent){
-                        HSSFRow hssfRow = hssfSheet.createRow(++lastRow);
-                        hssfRow.createCell(0).setCellValue(model.getStud_name());
-                        hssfRow.createCell(1).setCellValue(model.getStud_uid());
-                        hssfRow.createCell(2).setCellValue("Present");
-                    }
-                    for (ModelStud model : adapterStudRV.arrAbsent){
-                        HSSFRow hssfRow = hssfSheet.createRow(++lastRow);
-                        hssfRow.createCell(0).setCellValue(model.getStud_name());
-                        hssfRow.createCell(1).setCellValue(model.getStud_uid());
-                        hssfRow.createCell(2).setCellValue("Absent");
-                    }
+                for (ModelStud model : adapterStudRV.arrPresent) {
+                    HSSFRow hssfRow = hssfSheet.createRow(++lastRow);
+                    hssfRow.createCell(0).setCellValue(model.getStud_name());
+                    hssfRow.createCell(1).setCellValue(model.getStud_uid());
+                    hssfRow.createCell(2).setCellValue("Present");
+                }
+                for (ModelStud model : adapterStudRV.arrAbsent) {
+                    HSSFRow hssfRow = hssfSheet.createRow(++lastRow);
+                    hssfRow.createCell(0).setCellValue(model.getStud_name());
+                    hssfRow.createCell(1).setCellValue(model.getStud_uid());
+                    hssfRow.createCell(2).setCellValue("Absent");
+                }
 
-                    fileInputStream.close();
+                fileInputStream.close();
 
-                    FileOutputStream fileOutputStream = new FileOutputStream(filePath);
-                    hssfWorkbook.write(fileOutputStream);
-                    Toast.makeText(getApplicationContext(), fileName+" File Updated", Toast.LENGTH_SHORT).show();
-                    fileOutputStream.close();
-            }
-            catch (Exception e){
+                FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+                hssfWorkbook.write(fileOutputStream);
+                Toast.makeText(getApplicationContext(), fileName + " File Updated", Toast.LENGTH_SHORT).show();
+                fileOutputStream.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-
-
 
 
     private void CheckAllTick() {
@@ -260,9 +257,9 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
         size = String.valueOf(preferences.getAll().size());
         size2 = String.valueOf(count);
 
-        if (size.equals(size2)){
+        if (size.equals(size2)) {
             SubmitAttendance();
-        }else {
+        } else {
             Toast.makeText(StudActivity.this, "Mark All Students", Toast.LENGTH_SHORT).show();
         }
 
@@ -270,58 +267,56 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
 
     private void SubmitAttendance() {
 
-        
-            final ProgressDialog progressDialog = new ProgressDialog(StudActivity.this);
-            progressDialog.setMessage("Submitting, Please wait..");
-            progressDialog.show();
-            final String date = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
-            final RealmResults<ModelReportAttendance> list_students ;
 
-            list_students = realm.where(ModelReportAttendance.class)
-                    .equalTo("date_room_id", date+room_id)
-                    .sort("stud_name", Sort.ASCENDING)
-                    .findAllAsync();
+        final ProgressDialog progressDialog = new ProgressDialog(StudActivity.this);
+        progressDialog.setMessage("Submitting, Please wait..");
+        progressDialog.show();
+        final String date = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
+        final RealmResults<ModelReportAttendance> list_students;
 
-            final RealmList<ModelReportAttendance> list = new RealmList<>();
-            list.addAll(list_students);
+        list_students = realm.where(ModelReportAttendance.class)
+                .equalTo("date_room_id", date + room_id)
+                .sort("stud_name", Sort.ASCENDING)
+                .findAllAsync();
 
-            Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-            final String dateOnly = String.valueOf(calendar.get(Calendar.DATE));
-            @SuppressLint("SimpleDateFormat")
-            final String monthOnly = new SimpleDateFormat("MMM").format(calendar.getTime());
+        final RealmList<ModelReportAttendance> list = new RealmList<>();
+        list.addAll(list_students);
 
-            excel(sec_name,date);
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        final String dateOnly = String.valueOf(calendar.get(Calendar.DATE));
+        @SuppressLint("SimpleDateFormat") final String monthOnly = new SimpleDateFormat("MMM").format(calendar.getTime());
 
-            try {
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        ModelReport model = realm.createObject(ModelReport.class);
-                        model.setRoom_id(room_id);
-                        model.setAttendance_list(list);
-                        model.setDate(date);
-                        model.setDateOnly(dateOnly);
-                        model.setMonthOnly(monthOnly);
-                        model.setDate_room_id(date+room_id);
-                        model.setSec_name(sec_name);
-                        model.setSub_name(sub_name);
+        excel(sec_name, date);
 
-                    }
-                });
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.clear();
-                editor.commit();
+        try {
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    ModelReport model = realm.createObject(ModelReport.class);
+                    model.setRoom_id(room_id);
+                    model.setAttendance_list(list);
+                    model.setDate(date);
+                    model.setDateOnly(dateOnly);
+                    model.setMonthOnly(monthOnly);
+                    model.setDate_room_id(date + room_id);
+                    model.setSec_name(sec_name);
+                    model.setSub_name(sub_name);
+
+                }
+            });
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.commit();
 //                Toast.makeText(StudActivity.this, "Attendance Submitted", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
+            progressDialog.dismiss();
 
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                progressDialog.dismiss();
-                Toast.makeText(StudActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
-            }
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(StudActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+        }
 
 
     }
@@ -353,10 +348,9 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
             String StudName = eStud_name.getText().toString();
             String StudUid = eStud_uid.getText().toString();
 
-            if (StudName.equals("")){
+            if (StudName.equals("")) {
                 Toast.makeText(StudActivity.this, "Blank Field!", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 final ProgressDialog progressDialog = new ProgressDialog(StudActivity.this);
                 progressDialog.setMessage("Creating Student..");
                 progressDialog.show();
@@ -364,9 +358,9 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
                 transaction = realm.executeTransactionAsync(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        int i=0;
+                        int i = 0;
                         ModelStud model = realm.createObject(ModelStud.class);
-                        String id = StudName+StudUid;
+                        String id = StudName + StudUid;
                         model.setId(id);
                         model.setStud_name(StudName);
                         model.setStud_uid(StudUid);
@@ -387,6 +381,23 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
 
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                int second = calendar.get(Calendar.SECOND);
+                String currDT = "_" + day + ":" + (month + 1) + ":" + year + "_" + hour + ":" + minute + ":" + second;
+
+                ModelStudFB model2 = new ModelStudFB(StudName, StudUid);
+                FirebaseDatabase.getInstance().getReference().child("ATTENDIFY")
+                        .child(FirebaseAuth.getInstance().getUid())
+                        .child("SECTIONS")
+                        .child(room_id)
+                        .child("STUDENTS")
+                        .child(currDT)
+                        .setValue(model2);
                 dialog.dismiss();
             }
         });
@@ -402,7 +413,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void RealmChange(){
+    public void RealmChange() {
 
         Realm.init(this);
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME)
@@ -444,7 +455,7 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
         realm.addChangeListener(realmChangeListener);
-        RealmResults<ModelStud> results ;
+        RealmResults<ModelStud> results;
         results = realm.where(ModelStud.class)
                 .equalTo("room_id", room_id)
                 .sort("stud_name", Sort.ASCENDING)
@@ -483,15 +494,14 @@ public class StudActivity extends AppCompatActivity implements View.OnClickListe
 //        mAdapter = new StudentsListAdapter( students,ClassDetail_Activity.this, date+room_ID, extraClick);
 //        mRecyclerview.setAdapter(mAdapter);
 
-        adapterStudRV = new AdapterStudRV(results,date+room_id);
+        adapterStudRV = new AdapterStudRV(results, date + room_id);
         vRV_Stud.setAdapter(adapterStudRV);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
 

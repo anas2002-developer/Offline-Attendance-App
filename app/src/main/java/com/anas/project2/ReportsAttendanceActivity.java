@@ -80,7 +80,7 @@ public class ReportsAttendanceActivity extends AppCompatActivity {
 
         vRV_ReportAttendance.setLayoutManager(new LinearLayoutManager(this));
 
-        adapterReportAttendanceRV = new AdapterReportAttendanceRV(results,date_room_id);
+        adapterReportAttendanceRV = new AdapterReportAttendanceRV(results,date_room_id,sec_name+"_"+sub_name,date);
         vRV_ReportAttendance.setAdapter(adapterReportAttendanceRV);
     }
 
